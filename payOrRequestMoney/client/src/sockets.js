@@ -11,5 +11,3 @@ export const checkIfThisNewEventIsForThisComponent = (newUpdateFromSocket, compo
 export const listenToSocket = (cb) => {
   socket.on('pay_or_request', cb);
 };
-
-console.log(socket)

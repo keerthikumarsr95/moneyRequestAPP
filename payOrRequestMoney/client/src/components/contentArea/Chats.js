@@ -165,8 +165,6 @@ class DrawerForm extends React.Component {
   }
 
   listen(updates) {
-    console.log('updates: ', updates);
-    console.log('this.state.contact.phoneNumber: ', this.state.contact.phoneNumber);
     if (updates.phoneNumber === this.state.contact.phoneNumber) {
       this.getTransactions()
 

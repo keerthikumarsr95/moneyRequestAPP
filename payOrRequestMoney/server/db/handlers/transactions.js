@@ -1,7 +1,12 @@
 const Orders = require('../models/transactions');
 
-const add = (queryObject) => {
-  const newOrder = new Orders(queryObject);
+/** 
+ * Handle Db actions
+ * @param {object} initObject
+ * @return {object} addedRecord
+*/
+const add = (initObject) => {
+  const newOrder = new Orders(initObject);
   return newOrder.save();
 }
 

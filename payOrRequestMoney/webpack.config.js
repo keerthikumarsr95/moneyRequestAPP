@@ -9,7 +9,6 @@ module.exports = {
   mode: isDevelopment ? 'development' : 'production',
   entry: {
     main: [
-      // '@shopify/polaris/styles.css',
       'webpack-hot-middleware/client',
       path.resolve(__dirname, './client/src/index.js'),
     ],

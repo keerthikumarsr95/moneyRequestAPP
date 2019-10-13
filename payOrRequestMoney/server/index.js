@@ -19,7 +19,6 @@ const path = require('path');
 
 const routes = require('./routes/index');
 const middlewares = require('./middlewares/index');
-// const config = require('./utils/index');
 
 const webpackConfig = require('../webpack.config.js');
 
@@ -40,15 +39,21 @@ app.use(compression());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-/** Roots routes */
+/**
+ * All base routes are here.
+ */
 
 app.use('/api/v1/users', routes.users);
+
+/**
+ * All protected base routes.
+ * @middleware authenticate used to validate user based on token from auth header.
+ */
 app.use('/api/v1/contacts', middlewares.authenticate, routes.contacts);
 app.use('/api/v1/transaction', middlewares.authenticate, routes.transactions);
 
 
 const isDevelopment = true;
-// config.APP_ENVIRONMENT !== 'production';
 console.log('isDevelopment: ', isDevelopment);
 if (isDevelopment) {
   const compiler = webpack(webpackConfig);

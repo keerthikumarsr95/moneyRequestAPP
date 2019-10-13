@@ -1,11 +1,55 @@
-const express = require('express');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>routes/transactions.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#authenticate">authenticate</a></li><li><a href="global.html#handleGetAllContacts">handleGetAllContacts</a></li><li><a href="global.html#handleGetAllTransactionsRequest">handleGetAllTransactionsRequest</a></li><li><a href="global.html#handleLoginRequest">handleLoginRequest</a></li><li><a href="global.html#handleNewPayment">handleNewPayment</a></li><li><a href="global.html#handleNewUserSignup">handleNewUserSignup</a></li><li><a href="global.html#handlePaymentRequest">handlePaymentRequest</a></li><li><a href="global.html#notifyRequestToUser">notifyRequestToUser</a></li><li><a href="global.html#processPaymentRequest">processPaymentRequest</a></li><li><a href="global.html#processTransactions">processTransactions</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">routes/transactions.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const express = require('express');
 const db = require('../db/index');
 const utils = require('../utils/index');
 
 const router = express.Router();
 
 /**
- * Mark the TO user that he has a new request from FROM user.<br />
+ * Mark the TO user that he has a new request from FROM user.&lt;br />
  * UPDATE client using SOCKETS
  */
 const notifyRequestToUser = async (toUser, fromUser, amount) => {
@@ -18,7 +62,7 @@ const notifyRequestToUser = async (toUser, fromUser, amount) => {
 
 /**
  * 
- * If there is REMAINING amount and if the REQUESTED amount is AVAILABLE mark the transaction as COMPLETED and repeat for next transaction.<br />
+ * If there is REMAINING amount and if the REQUESTED amount is AVAILABLE mark the transaction as COMPLETED and repeat for next transaction.&lt;br />
  * 
  * @param {Array} transactions TRANSACTIONS Array
  * @param {float} amount AMOUNT to process
@@ -26,9 +70,9 @@ const notifyRequestToUser = async (toUser, fromUser, amount) => {
  */
 const processTransactions = async (transactions, amount) => {
   let remaining = amount;
-  for (let index = 0; index < transactions.length; index++) {
+  for (let index = 0; index &lt; transactions.length; index++) {
     const transaction = transactions[index];
-    if (remaining > 0 && (transaction.amount >= remaining)) {
+    if (remaining > 0 &amp;&amp; (transaction.amount >= remaining)) {
       remaining -= transaction.amount;
       await db.transactions.findOneAndUpdate({ id: transaction.id }, { isCompleted: true });
     } else {
@@ -39,8 +83,8 @@ const processTransactions = async (transactions, amount) => {
 }
 
 /**
- * Check if there are any REMAINING PAYMENT REQUEST transactions, process them and marking them completed.<br/>
- * <br />
+ * Check if there are any REMAINING PAYMENT REQUEST transactions, process them and marking them completed.&lt;br/>
+ * &lt;br />
  * if there are no previous transactions mark as PAID MORE.
  * UPDATE client with using SOCKETS
  * 
@@ -66,11 +110,11 @@ const processPaymentRequest = async (toUser, fromUser, amount) => {
 };
 
 /** 
- * Here we handle when ever an request for payment (AN PAYMENT REQUEST TRANSACTION).<br />
- * <br />
- * 1. Add a REQUEST transaction to transactions collection.<br />
- * 2. Mark the TO user that he has new payment request from FROM user.<br />
- * 3. Also use sockets to auto update the client<br />
+ * Here we handle when ever an request for payment (AN PAYMENT REQUEST TRANSACTION).&lt;br />
+ * &lt;br />
+ * 1. Add a REQUEST transaction to transactions collection.&lt;br />
+ * 2. Mark the TO user that he has new payment request from FROM user.&lt;br />
+ * 3. Also use sockets to auto update the client&lt;br />
  * 
  * @param {Object} userUUID FROM user identifier
  * @param {float} amount AMOUNT to request
@@ -117,12 +161,12 @@ router.post('/request', async (req, res) => {
 });
 
 /** 
- * Here we handle when ever an payment is done (AN PAYMENT TRANSACTION).<br/>
- * <br />
- * 1. Add a PAY transaction to transactions collection. <br/>
- * 2. Process previous incomplete REQUEST transaction, mark the fulfilled transaction as COMPLETED.<br/>
- * 3. Get the REMAINING amount after processing transaction, based on remaining amount mark PAID MORE or NEED TO PAY MORE.<br/>
- * <br/>
+ * Here we handle when ever an payment is done (AN PAYMENT TRANSACTION).&lt;br/>
+ * &lt;br />
+ * 1. Add a PAY transaction to transactions collection. &lt;br/>
+ * 2. Process previous incomplete REQUEST transaction, mark the fulfilled transaction as COMPLETED.&lt;br/>
+ * 3. Get the REMAINING amount after processing transaction, based on remaining amount mark PAID MORE or NEED TO PAY MORE.&lt;br/>
+ * &lt;br/>
  * TODO: need to handle PARTIAL PAYMENTS. one way is to keep track of PAID and BALANCE and make use in next payment transaction.
  * @param {string} userUUID FROM user identifier
  * @param {float} amount AMOUNT to pay
@@ -184,7 +228,7 @@ const handleGetAllTransactionsRequest = async (inputObject) => {
     to: { $in: [fromPhoneNumber, contactId.phoneNumber] }
   }
   const transactions = await db.transactions.findWithSort(queryObject, { date: 1 })
-  if (transactions && transactions.length) {
+  if (transactions &amp;&amp; transactions.length) {
     return { success: true, transactions };
   } else {
     return { success: false };
@@ -209,4 +253,28 @@ router.get('/', async (req, res) => {
 
 });
 
-module.exports = router;
+module.exports = router;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Oct 13 2019 22:57:36 GMT+0530 (IST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

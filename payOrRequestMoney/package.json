@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/index.js --watch server"
+    "start": "nodemon server/index.js --watch server",
+    "generate-docs": "jsdoc -r  ./server -d docs -c ./server/jsdoc.conf README.md"
   },
   "author": "keerthi kumar sr",
   "license": "ISC",
@@ -44,7 +45,9 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^3.0.0",
+    "docdash": "^1.1.1",
     "file-loader": "^4.0.0",
+    "jsdoc": "^3.6.3",
     "nodemon": "^1.19.1",
     "react-hot-loader": "^4.11.1",
     "style-loader": "^0.23.1",
