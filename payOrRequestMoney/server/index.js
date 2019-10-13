@@ -2,6 +2,8 @@ const dotenv = require('dotenv').config();
 const http = require('http');
 
 const mongoose = require('./connectToMongoDb');
+const utils = require('./utils/index');
+
 const socketIO = require('socket.io');
 const compression = require('compression');
 const cors = require('cors');
@@ -27,7 +29,9 @@ const app = express();
 
 const server = http.createServer(app);
 const io = socketIO(server);
-global.socket = io;
+
+/* INITIALIZE SOCKET HELPER WITH SOCKET SERVER INSTANCE */
+utils.sockets.init(io);
 
 app.use(cors());
 app.use(helmet());
@@ -41,11 +45,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/api/v1/users', routes.users);
 app.use('/api/v1/contacts', middlewares.authenticate, routes.contacts);
 app.use('/api/v1/transaction', middlewares.authenticate, routes.transactions);
-// app.use('/api/v1/orders', middlewares.authenticateAdmin, routes.orders);
-// app.use('/api/v1/stores', middlewares.authenticateToken, routes.stores);
-// app.use('/api/v1/shipment', middlewares.authenticateToken, middlewares.authorizeStore, routes.trackingHistory);
-// app.use('/api/v1/carrier', middlewares.authenticateToken, middlewares.authorizeStore, routes.carriers);
-// app.use('/api/v1/', middlewares.authenticateToken, middlewares.authorizeStore, routes.counts);
 
 
 const isDevelopment = true;

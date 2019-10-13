@@ -5,14 +5,9 @@ import socket from './sockets';
 
 import App from './app';
 import { setAuthHeaders } from './actions/authActions';
-// import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 setAuthHeaders();
 
-
-
-
-
-// const materialUiTheme = createMuiTheme(muiTheme);
 ReactDOM.render(
   <App />
   , document.getElementById('app'));

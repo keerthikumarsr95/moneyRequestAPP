@@ -8,8 +8,8 @@ const notifyRequestToUser = async (toUser, fromUser, amount) => {
   const fromContactFromToUserIndex = toUser.contacts.findIndex(c => c.phoneNumber === fromUser.phoneNumber);
   toUser.contacts[fromContactFromToUserIndex].hasNewRequest = true;
   await db.users.findOneAndUpdate({ userUUID: toUser.userUUID }, { contacts: toUser.contacts });
-  socket.emit('sokect_emit', { phoneNumber: toUser.phoneNumber })
-  socket.emit('sokect_emit', { phoneNumber: fromUser.phoneNumber })
+  utils.sockets.emit({ phoneNumber: toUser.phoneNumber })
+  utils.sockets.emit({ phoneNumber: fromUser.phoneNumber })
 };
 
 const processTransactions = async (transactions, amount) => {
@@ -38,8 +38,8 @@ const processPaymentRequest = async (toUser, fromUser, amount) => {
     toUser.contacts[fromContactFromToUserIndex].isPaidMore = true;
   }
   await db.users.findOneAndUpdate({ userUUID: toUser.userUUID }, { contacts: toUser.contacts });
-  socket.emit('sokect_emit', { phoneNumber: toUser.phoneNumber })
-  socket.emit('sokect_emit', { phoneNumber: fromUser.phoneNumber })
+  utils.sockets.emit({ phoneNumber: toUser.phoneNumber })
+  utils.sockets.emit({ phoneNumber: fromUser.phoneNumber })
 };
 
 router.post('/request', async (req, res) => {

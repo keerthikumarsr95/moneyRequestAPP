@@ -27,7 +27,6 @@ class App extends Component {
               }} />
               <Route exact path="/signup" component={WrappedComponents.Signup} />
               {routes.map((curr) => <ProtectedRoute key={curr.path} exact={curr.exact} path={curr.path} component={curr.component} />)}
-              {/* <Route exact path="/home/orders" component={} /> */}
             </Layout>
           </ContactsProvider>
         </AuthProvider>

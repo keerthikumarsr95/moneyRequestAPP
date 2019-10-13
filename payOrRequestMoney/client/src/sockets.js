@@ -9,8 +9,7 @@ export const checkIfThisNewEventIsForThisComponent = (newUpdateFromSocket, compo
 };
 
 export const listenToSocket = (cb) => {
-  console.log('cb: ', cb);
-  socket.on('sokect_emit', cb);
+  socket.on('pay_or_request', cb);
 };
 
 console.log(socket)
