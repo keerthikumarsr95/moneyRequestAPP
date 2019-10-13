@@ -1,0 +1,79 @@
+.image {
+  margin-top: 20%;
+  height: 50%;
+  max-height: 60vh;
+}
+
+.width-100 {
+  width: 100% !important;
+}
+
+.width-50 {
+  width: 50% !important;
+}
+
+.width-20 {
+  width: 22% !important;
+}
+
+.padding-2px {
+  padding: 2px;
+}
+
+.bottom-nav {
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-nav-container {
+  background: #fafafa;
+  border-top: 1px solid #e8e8e8;
+  bottom: 0;
+  padding: 12px;
+  position: absolute;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.textAlign-right-imp {
+  text-align: right !important;
+}
+
+.textAlign-right {
+  padding: 10px;
+  font-size: 16px;
+  text-align: right !important;
+}
+
+.transaction {
+  max-height: 500px;
+  overflow: auto;
+}
+
+.textAlign-left {
+  padding: 10px;
+  font-size: 16px;
+  text-align: left !important;
+}
+
+.error,
+.error:focus {
+  border-color: red !important;
+  color: red !important;
+}
+
+.container {
+  background: none;
+  color: none;
+  /* background-color: white; */
+  min-height: 600px;
+
+}
